@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500" role="img" aria-label="Shelbeely banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111113"/>
+      <stop offset="60%" stop-color="#2A2A30"/>
+      <stop offset="100%" stop-color="#ff80bf"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffd1e6"/>
+      <stop offset="100%" stop-color="#ff80bf"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="18" />
+    </filter>
+  </defs>
+  <rect width="1600" height="500" fill="url(#bg)"/>
+  <!-- soft shapes -->
+  <circle cx="250" cy="420" r="180" fill="url(#accent)" opacity="0.15" filter="url(#soft)"/>
+  <circle cx="1420" cy="120" r="220" fill="url(#accent)" opacity="0.18" filter="url(#soft)"/>
+  <circle cx="980" cy="360" r="140" fill="url(#accent)" opacity="0.12" filter="url(#soft)"/>
+  <!-- title -->
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" fill="#fff">
+    <text x="120" y="220" font-size="64" font-weight="700">Shelbee Johnson</text>
+    <text x="120" y="280" font-size="28" opacity="0.9">Trans femme web developer · she/her · queer tech magic</text>
+  </g>
+  <!-- subtle terminal bars -->
+  <g opacity="0.17">
+    <rect x="120" y="320" width="460" height="10" rx="5" fill="#fff"/>
+    <rect x="120" y="345" width="360" height="10" rx="5" fill="#fff"/>
+    <rect x="120" y="370" width="300" height="10" rx="5" fill="#fff"/>
+  </g>
+</svg>
