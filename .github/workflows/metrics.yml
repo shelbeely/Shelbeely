@@ -1,14 +1,14 @@
-name: GitHub Metrics (All-Time, Private Inclusive)
+name: GitHub Metrics + Skyline STL (All-Time)
 on:
   schedule:
-    - cron: "30 6 * * *"
+    - cron: '30 6 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  metrics:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,36 +22,32 @@ jobs:
           base: header, activity, community, repositories, metadata
           config_timezone: America/Los_Angeles
 
-          # All-time languages (stable): only most-used to avoid recent analyzer crash
           plugin_languages: yes
           plugin_languages_sections: most-used
           plugin_languages_limit: 12
-
-          # Nice extras that are all-time aggregates
           plugin_isocalendar: yes
           plugin_followup: yes
           plugin_stars: yes
-
-          # Optional skyline panel (yearly visual, but harmless to keep)
           plugin_skyline: yes
           plugin_skyline_year: 2025
-n: |
+
+      - name: Install GitHub CLI and skyline extension
+        run: |
           sudo apt-get update
-          sudo apt-get install -y gh jq imagemagick
+          sudo apt-get install -y gh
           gh extension install github/gh-skyline
 
-      - name: Generate Skyline image
+      - name: Export Skyline STL
         env:
           GH_TOKEN: ${{ secrets.METRICS_TOKEN }}
         run: |
-          gh skyline export --user Shelbeely --year 2025 --format stl --output skyline.stl
-          gh skyline render skyline.stl --output assets/skyline.png
-          convert assets/skyline.png assets/skyline.webp
+          mkdir -p assets
+          gh skyline --user Shelbeely --year 2025 --output assets/Shelbeely-2025-github-skyline.stl
 
-      - name: Commit updated metrics and skyline
+      - name: Commit metrics SVG and STL (if changed)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add github-metrics.svg assets/skyline.webp
-          git commit -m "update private metrics + skyline [auto]" || echo "no changes"
+          git add github-metrics.svg assets/Shelbeely-2025-github-skyline.stl
+          git commit -m "update metrics + skyline STL [auto]" || echo "no changes"
           git push
